@@ -1,11 +1,14 @@
-// backend/server.js
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+
+// Allow CORS requests from your frontend
+app.use(cors({
+  origin: 'https://quiz-game-mjrii53bf-simhachalams-projects.vercel.app'  // Vercel frontend URL
+}));
 
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
@@ -22,6 +25,7 @@ let currentQuestionIndex = 0;
 let players = [];
 let gameStarted = false;  // Game state
 
+// Handle connection with Socket.io
 io.on('connection', (socket) => {
   console.log('A player connected:', socket.id);
 
@@ -71,6 +75,7 @@ io.on('connection', (socket) => {
   });
 });
 
+// Start the server on port 4000
 server.listen(4000, () => {
   console.log('Server running on port 4000');
 });

@@ -2,21 +2,24 @@
 import React, { useState, useEffect } from 'react';
 
 function PlayerScreen({ socket, playerName }) {
-  const [question, setQuestion] = useState(null);
-  const [selectedAnswer, setSelectedAnswer] = useState('');
-  const [feedback, setFeedback] = useState('');
+  const [question, setQuestion] = useState(null);  // Holds the current question
+  const [selectedAnswer, setSelectedAnswer] = useState('');  // Stores player's answer
+  const [feedback, setFeedback] = useState('');  // Shows feedback (e.g., wrong answer)
 
   useEffect(() => {
+    // Listen for the question from the server
     socket.on('update_question', (questionData) => {
       setQuestion(questionData);
-      setFeedback('');
+      setFeedback('');  // Clear feedback on new question
     });
 
+    // Listen for wrong answer feedback
     socket.on('wrong_answer', () => {
-      setFeedback('Incorrect! Try again.');
+      setFeedback('Sorry, that was incorrect.');
     });
   }, [socket]);
 
+  // Handle answer submission
   const handleSubmit = () => {
     if (selectedAnswer) {
       socket.emit('submit_answer', { playerName, answer: selectedAnswer });
@@ -34,7 +37,7 @@ function PlayerScreen({ socket, playerName }) {
               <input
                 type="radio"
                 name="answer"
-                value={option[0]}
+                value={option[0]}  // Answer value (A, B, C, D)
                 onChange={() => setSelectedAnswer(option[0])}
               />
               {option}

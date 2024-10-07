@@ -1,4 +1,3 @@
-// frontend/src/App.js
 import React, { useState, useEffect } from 'react';
 import HomeScreen from './components/HomeScreen';
 import GameScreen from './components/GameScreen';
@@ -6,7 +5,8 @@ import PlayerScreen from './components/PlayerScreen';
 import io from 'socket.io-client';
 import './App.css';
 
-const socket = io('http://localhost:4000');
+// Connect to your backend hosted on Render
+const socket = io('https://quiz-game-h3rh.onrender.com');
 
 function App() {
   const [isPlayer, setIsPlayer] = useState(false);

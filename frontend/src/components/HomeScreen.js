@@ -20,7 +20,8 @@ function HomeScreen({ onJoin, players, startGame, isPlayer }) {
         </>
       )}
       <h2>Scan QR Code to join on mobile</h2>
-      <QRCodeCanvas value="http://localhost:3000" size={200} />
+      {/* QR Code for players to join from their mobile devices */}
+      <QRCodeCanvas value="https://quiz-game-mjrii53bf-simhachalams-projects.vercel.app" size={200} />
 
       <div>
         <h3>Players Joined:</h3>
